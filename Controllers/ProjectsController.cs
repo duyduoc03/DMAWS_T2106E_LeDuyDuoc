@@ -21,6 +21,7 @@ namespace DMAWS_T2108E_LeDuyDuoc.Controllers
             _context = context;
         }
 
+
         // GET: api/Projects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
@@ -30,6 +31,56 @@ namespace DMAWS_T2108E_LeDuyDuoc.Controllers
               return NotFound();
           }
             return await _context.Projects.ToListAsync();
+        }
+
+        // GET: api/Projects/Search?name={name}
+        [HttpGet("Search")]
+        public async Task<ActionResult<IEnumerable<Project>>> SearchProjectsbyName(string name)
+        {
+
+            var projects = await _context.Projects
+                .Where(p => p.ProjectName.Contains(name))
+                .ToListAsync();
+
+
+            if (projects == null || projects.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return projects;
+        }
+
+        // GET: api/Projects/Progress
+        [HttpGet("Progress")]
+        public async Task<ActionResult<IEnumerable<Project>>> Progress()
+        {
+            var projects = await _context.Projects
+                .Where(p => p.ProjectEndDate == null || p.ProjectEndDate >= DateTime.Now)
+                .ToListAsync();
+
+            if (projects == null || projects.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return projects;
+        }
+
+        // GET: api/Projects/Finished
+        [HttpGet("Finished")]
+        public async Task<ActionResult<IEnumerable<Project>>> Finished()
+        {
+            var projects = await _context.Projects
+                .Where(p => p.ProjectEndDate != null && p.ProjectEndDate < DateTime.Now)
+                .ToListAsync();
+
+            if (projects == null || projects.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return projects;
         }
 
         // GET: api/Projects/5

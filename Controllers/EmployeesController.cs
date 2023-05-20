@@ -32,6 +32,24 @@ namespace DMAWS_T2108E_LeDuyDuoc.Controllers
             return await _context.Emloyees.ToListAsync();
         }
 
+        // GET: api/Employees/Search?name={name}
+        [HttpGet("Search")]
+        public async Task<ActionResult<IEnumerable<Employee>>> SearchProjectsbyName(string name)
+        {
+
+            var employee = await _context.Emloyees
+                .Where(e => e.EmployeeName.Contains(name))
+                .ToListAsync();
+
+
+            if (employee == null || employee.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return employee;
+        }
+
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)

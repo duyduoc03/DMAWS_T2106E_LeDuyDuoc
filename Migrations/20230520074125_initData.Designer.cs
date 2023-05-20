@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DMAWS_T2108E_LeDuyDuoc.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230520052457_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230520074125_initData")]
+    partial class initData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
