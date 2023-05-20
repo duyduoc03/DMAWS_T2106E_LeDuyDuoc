@@ -1,3 +1,7 @@
+using DMAWS_T2108E_LeDuyDuoc.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
